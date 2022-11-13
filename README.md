@@ -1,6 +1,6 @@
 # Deep Learning based Intelligent Connectivity for Mobility Management
-NCCUCS的大學畢業專題  
-運用機器學習技術預測位置  
+## NCCUCS的大學畢業專題  
+運用機器學習技術預測軌跡位置  
 
 ## 研究目的
 探討如何使用不同深度學習(Deep learning)的技術   
