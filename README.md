@@ -1,8 +1,7 @@
 # Deep Learning based Intelligent Connectivity for Mobility Management
-## NCCUCS的大學畢業專題  
-運用機器學習技術預測軌跡位置  
+使用Python Pytorch設計machine learning models預測軌跡位置  
 
-## 研究目的
+## 目的
 探討如何使用不同深度學習(Deep learning)的技術   
 預測使用者接下來的位置  
 並提前準備換手(Handover)的前置作業  
@@ -12,4 +11,22 @@
 ## 資料來源
 根據論文  
 SMOOTH: A Simple Way to Model Human Mobility  
-模擬其演算法產生data  
+模擬其演算法產生data訓練
+
+## LSTM
+LSTM(Long Short-Term Memory)
+```
+LSTM_pytorch.ipynb
+```
+
+## GRU
+GRU(Gated Recurrent Unit)
+```
+GRU_pytorch.ipynb
+```
+
+## TCN
+TCN(Temporal Convolutional Network)
+```
+TCN_pytorch.ipynb
+```
