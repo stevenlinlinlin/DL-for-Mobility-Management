@@ -10,42 +10,15 @@ class LSTM(nn.Module):
         self.input_size = input_size
         self.layer_num = layer_num
 
-        self.lstm = nn.LSTM(input_size, hidden_size,
-                            layer_num, batch_first=True, dropout=0.2)
-        #self.lstm1 = nn.LSTMCell(self.input_size, self.hidden_size)
-        #self.lstm2 = nn.LSTMCell(self.hidden_size, self.hidden_size)
-        #self.lstm3 = nn.LSTMCell(self.hidden_size, self.hidden_size)
-        self.fc1 = nn.Linear(hidden_size, input_size)
-        #self.fc2 = nn.Linear(108, 2)
+        self.lstm = nn.LSTM(input_size, hidden_size, layer_num, batch_first=True, dropout=0.2)
+        self.fc1 = nn.Linear(hidden_size, 2)
 
-        #self.relu = nn.ReLU()
+        self.relu = nn.ReLU()
 
-    #forward
     def forward(self, x):
-        # Initialize hidden state with zeros
-        h0 = torch.zeros(self.layer_num, x.size(
-            0), self.hidden_size).requires_grad_().to(device)
-        # Initialize cell state
-        c0 = torch.zeros(self.layer_num, x.size(
-            0), self.hidden_size).requires_grad_().to(device)
-        #h1 = torch.zero(x.size(0), self.hidden_size, dtype=torch.float32).to(device)
-        #c1 = torch.zero(x.size(0), self.hidden_size, dtype=torch.float32).to(device)
-        #h2 = torch.zero(x.size(0), self.hidden_size, dtype=torch.float32).to(device)
-        #c2 = torch.zero(x.size(0), self.hidden_size, dtype=torch.float32).to(device)
-        #h3 = torch.zero(x.size(0), self.hidden_size, dtype=torch.float32).to(device)
-        #c3 = torch.zero(x.size(0), self.hidden_size, dtype=torch.float32).to(device)
-
-        # weights initialization
-      #torch.nn.init.xavier_normal_(h1)
-      #torch.nn.init.xavier_normal_(c1)
-      #torch.nn.init.xavier_normal_(h2)
-      #torch.nn.init.xavier_normal_(c2)
-        #torch.nn.init.xavier_normal_(h3)
-        #torch.nn.init.xavier_normal_(c3)
-
-        out, _ = self.lstm(x, (h0.detach(), c0.detach()))
+        out, _ = self.lstm(x)
         out = self.fc1(out[:, -1, :])
-        #out = self.fc2(out)
+        out = self.relu(out)
         return out
 
 
