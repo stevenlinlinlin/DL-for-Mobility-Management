@@ -17,6 +17,7 @@ from model import *
 
 
 def main(args: Namespace) -> None:
+    print(f"------Model name: {args.model}-------")
     # generate mobility data for input with array
     data = np.load(args.data_dir, allow_pickle=True)
     #print(data.shape)
@@ -54,7 +55,7 @@ def build_model(args) -> nn.Module:
     if args.model == 'LSTM':
         model = LSTM(2,64,3).to(args.device)
     elif args.model == 'GRU':
-        model = GRU().to(args.device)
+        model = GRU(2,64,3).to(args.device)
     elif args.model == 'TCN':
         model = TCN().to(args.device)
     return model

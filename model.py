@@ -30,17 +30,13 @@ class GRU(nn.Module):
         self.layer_num = layer_num
 
         self.gru = nn.GRU(input_dim, hidden_dim, layer_num, batch_first=True)
-        self.fc = nn.Linear(hidden_dim, 3)
+        self.fc = nn.Linear(hidden_dim, 2)
         self.relu = nn.ReLU()
 
     #forward
     def forward(self, x):
-        h0 = Variable(torch.zeros(self.layer_num, x.size(
-            0), self.hidden_dim)).requires_grad_().to(device)
-        out, (hn) = self.gru(x, (h0.detach()))
+        out, _ = self.gru(x)
         out = self.fc(self.relu(out[:, -1, :]))
-        #out = hn.view(-1, self.hidden_dim)
-        #out = self.fc(out)
         return out
 
 
