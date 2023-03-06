@@ -12,8 +12,10 @@ Predict the user's next location with pytorch machine learning models
 use the the paper(SMOOTH:A Simple Way to Model Human Mobility) algorithm to generate the dataset
 
 ## Environment
-- python jupyter notebook
-- Google Colab
+- Linux
+- RTX 3080
+- python 3.8
+
 
 ## Models
 ### LSTM
