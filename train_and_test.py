@@ -84,7 +84,8 @@ def train(args: Namespace, model: nn.Module, train_loader: DataLoader, model_nam
             optimizer.step()
         
         train_loss_array.append(train_loss/len(train_loader))
-    
+        # print("Epoch: ", epoch, "Loss: ", train_loss/len(train_loader))
+
     torch.save(model.state_dict(), model_name + '.pt')
     # plt.plot(train_loss_array)
     # plt.savefig('train_loss.png')
@@ -124,7 +125,7 @@ def parse_args() -> Namespace:
     parser.add_argument(
         "--device", type=torch.device, help="cpu, cuda:0", default="cuda:0"
     )
-    parser.add_argument("--num_epoch", type=int, default=500)
+    parser.add_argument("--num_epoch", type=int, default=100)
     parser.add_argument("--model", type=str, default="LSTM")
     parser.add_argument("--train", type=int, default=1)
 
