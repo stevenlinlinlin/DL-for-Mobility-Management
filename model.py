@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torch.nn.utils import weight_norm
 
 
 # LSTM model
@@ -68,8 +69,7 @@ class TemporalBlock(nn.Module):
 
         self.net = nn.Sequential(self.conv1, self.chomp1, self.relu1, self.dropout1,
                                  self.conv2, self.chomp2, self.relu2, self.dropout2)
-        self.downsample = nn.Conv1d(
-            n_inputs, n_outputs, 1) if n_inputs != n_outputs else None
+        self.downsample = nn.Conv1d(n_inputs, n_outputs, 1) if n_inputs != n_outputs else None
         self.relu = nn.ReLU()
         self.init_weights()
 
@@ -101,27 +101,18 @@ class TemporalConvNet(nn.Module):
 
     def forward(self, x):
         return self.network(x)
-
+    
 
 class TCN(nn.Module):
-    def __init__(self, c_in, num_channels):
+    def __init__(self, input_size, output_size, num_channels, kernel_size=2, dropout=0.2):
         super(TCN, self).__init__()
-        self.tcn = TemporalConvNet(c_in, num_channels)
-        #self.gap = GAP1d()
-        self.dropout = nn.Dropout(0.2)
-        #self.linear = nn.Linear(layers[-1],c_out)
-        #self.init_weights()
-        self.decoder = nn.Linear(num_channels[-1], 3)
+        self.tcn = TemporalConvNet(input_size, num_channels, kernel_size=kernel_size, dropout=dropout)
+        self.linear = nn.Linear(num_channels[-1], output_size)
+        self.init_weights()
 
-    #def init_weights(self):
-        #self.linear.weight.data.normal_(0, 0.01)
+    def init_weights(self):
+        self.linear.weight.data.normal_(0, 0.01)
 
     def forward(self, x):
-        return self.decoder(self.dropout(self.tcn(x)[:, :, -1]))
-        #x = self.tcn(x)
-        #x = self.gap(x)
-        #x = self.dropout(x)
-        #return self.linear(x)
-
-#param x: size of (Batch, input_channel, seq_len)
-#return: size of (Batch, output_channel, seq_len)
+        y1 = self.tcn(x)
+        return self.linear(y1[:, :, -1])
