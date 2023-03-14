@@ -9,7 +9,8 @@ Predict the user's next location with pytorch machine learning models
 - comparing the prediction accuracy of LSTM, GRU, and TCN in the dataset of simulated trajectories
 
 ## Dataset
-use the the paper(SMOOTH:A Simple Way to Model Human Mobility) algorithm to generate the dataset
+code the algorithm to generate the dataset from the paper [*].
+- [*] SMOOTH : A Simple Way to Model Human Mobility
 
 ## Environment
 - Linux
@@ -21,17 +22,18 @@ use the the paper(SMOOTH:A Simple Way to Model Human Mobility) algorithm to gene
 ### LSTM
 Long Short-Term Memory
 ```
-LSTM_pytorch.ipynb
+python train_and_test.py --model LSTM
 ```
 
 ### GRU
 Gated Recurrent Unit
 ```
-GRU_pytorch.ipynb
+python train_and_test.py --model GRU
 ```
 
 ### TCN
-Temporal Convolutional Network
+Temporal Convolutional Network[*]
 ```
-TCN_pytorch.ipynb
+python train_and_test.py --model TCN
 ```
+- [*] An Empirical Evaluation of Generic Convolutional and Recurrent Networks for Sequence Modeling
